@@ -12,7 +12,7 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post('gymbro-sigma.vercel.app/login', {email, password})
+        axios.post('https://gymbro-sigma.vercel.app/login', { email, password })
         .then(result => {
             console.log(result)
             if(result.data === "Success"){

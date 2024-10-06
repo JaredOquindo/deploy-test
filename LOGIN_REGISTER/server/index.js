@@ -4,6 +4,8 @@ const cors = require('cors')
 const UserModel = require('./models/users')
 
 const app = express()
+app.use(express.json())
+
 app.use(cors(
     {
         origin: ["https://gymbro-front-end.vercel.app"],
@@ -11,8 +13,6 @@ app.use(cors(
         credentials: true
     }
 ));
-app.use(express.json())
-
 
 mongoose.connect("mongodb+srv://joquindo:B7hniC80BhFs04tC@gymbro.z6vfz.mongodb.net/users")
 

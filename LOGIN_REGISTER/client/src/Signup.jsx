@@ -23,7 +23,7 @@ function Signup() {
             return; // Prevents submission if passwords do not match
         } else {
             setErrorMessage('');
-            axios.post('http://localhost:3000/signup', {firstName, lastName, email, password})
+            axios.post('gymbro-sigma.vercel.app/signup', {firstName, lastName, email, password})
             .then(result => {console.log(result)
                 navigate('/login')
             })

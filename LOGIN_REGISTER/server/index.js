@@ -10,8 +10,7 @@ app.use(express.json());
 app.use(cors({
     origin: ["https://gymbro-front-end.vercel.app",
             "https://gymbro-front-end.vercel.app/signup"],
-    methods: ["POST", "GET", "OPTIONS"],
-    credentials: true
+    methods: ["POST", "GET", "OPTIONS"]
 }));
 
 mongoose.connect("mongodb+srv://joquindo:B7hniC80BhFs04tC@gymbro.z6vfz.mongodb.net/users", { useNewUrlParser: true, useUnifiedTopology: true })

@@ -9,7 +9,8 @@ app.use(express.json());
 // CORS configuration
 app.use(cors({
     origin: ["https://gymbro-front-end.vercel.app",
-            "https://gymbro-front-end.vercel.app/signup"],
+            "https://gymbro-front-end.vercel.app/signup",
+            "https://gymbro-front-end.vercel.app/login"],
     methods: ["POST", "GET", "OPTIONS"]
 }));
 

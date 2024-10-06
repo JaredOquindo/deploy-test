@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const UserModel = require('./models/users');
+const bcrypt = require('bcrypt');
 
 const app = express();
 app.use(express.json());
@@ -23,21 +24,35 @@ app.get("/", (req, res) => {
     res.json("Hello");
 });
 
-app.post("/login", (req, res) => {
-    const { email, password } = req.body;
-    UserModel.findOne({ email: email })
-        .then(user => {
-            if (user) {
-                if (user.password === password) {
-                    res.json("Success");
-                } else {
-                    res.status(401).json("The password is incorrect");
-                }
-            } else {
-                res.status(404).json("No record existed");
-            }
-        })
-        .catch(err => res.status(500).json({ error: err.message }));
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body; // Destructure email and password
+
+    try {
+        // Check if the user exists in the database
+        const user = await UserModel.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Validate the password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: "Invalid email or password" });
+        }
+
+        // Respond with a success message and user information
+        return res.status(200).json({ 
+            message: "Login successful",
+            user: { 
+                userId: user._id, 
+                email: user.email, 
+                username: user.username
+            } 
+        });
+    } catch (err) {
+        console.error("Error during login:", err);
+        return res.status(500).json({ message: "Internal server error" });
+    }
 });
 
 app.post('/signup', (req, res) => {

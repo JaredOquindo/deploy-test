@@ -16,6 +16,7 @@ function Signup() {
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevents default form submission behavior
+        axios.defaults.withCredentials = true;
         
         // Check if password and confirmPassword are the same
         if (password !== confirmPassword) {

@@ -16,6 +16,10 @@ app.use(express.json())
 
 mongoose.connect("mongodb+srv://joquindo:B7hniC80BhFs04tC@gymbro.z6vfz.mongodb.net/users")
 
+app.get("/" (req,res) => {
+    res.json("Hello");
+})
+
 app.post("/login", (req,res) => {
     const {email,password} = req.body;
     UserModel.findOne({email: email})

@@ -8,7 +8,7 @@ app.use(express.json())
 
 app.use(cors(
     {
-        origin: ["https://gymbro-front-end.vercel.app"],
+        origin: "https://gymbro-front-end.vercel.app",
         methods: ["POST", "GET"],
         credentials: true
     }

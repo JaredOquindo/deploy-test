@@ -6,7 +6,7 @@ const UserModel = require('./models/users')
 const app = express()
 app.use(cors(
     {
-        origin: ["gymbro-sigma.vercel.app"],
+        origin: ["gymbro-front-end.vercel.app"],
         methods: ["POST", "GET"],
         credentials: true
     }

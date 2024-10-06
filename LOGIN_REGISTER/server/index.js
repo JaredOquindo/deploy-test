@@ -22,7 +22,7 @@ app.use(cors(
         credentials: true
     }
 ));
-
+app.options('*', cors());
 mongoose.connect("mongodb+srv://joquindo:B7hniC80BhFs04tC@gymbro.z6vfz.mongodb.net/users")
 
 app.get("/", (req,res) => {

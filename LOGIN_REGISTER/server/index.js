@@ -12,6 +12,7 @@ app.use(cors({
             "https://gymbro-front-end.vercel.app/signup",
             "https://gymbro-front-end.vercel.app/login"],
     methods: ["POST", "GET", "OPTIONS"]
+    // , credentials: true
 }));
 
 mongoose.connect("mongodb+srv://joquindo:B7hniC80BhFs04tC@gymbro.z6vfz.mongodb.net/users", { useNewUrlParser: true, useUnifiedTopology: true })

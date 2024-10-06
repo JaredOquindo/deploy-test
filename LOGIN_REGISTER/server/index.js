@@ -1,58 +1,51 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const UserModel = require('./models/users')
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const UserModel = require('./models/users');
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 
+// CORS configuration
+app.use(cors({
+    origin: "https://gymbro-front-end.vercel.app",
+    methods: ["POST", "GET", "OPTIONS"],
+    credentials: true
+}));
 
-// app.use((req, res, next) => {
-//     res.setheader('Access-Control-Allow-Origin', 'https://gymbro-front-end.vercel.app/*', '*');
-//     res.setHeader('Access-Control-Allow-Credentials', 'true');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
-//     res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-//     next();
-// });
+mongoose.connect("mongodb+srv://joquindo:B7hniC80BhFs04tC@gymbro.z6vfz.mongodb.net/users", { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
-app.use(cors(
-    {
-        origin: "https://gymbro-front-end.vercel.app",
-        methods: ["POST", "GET"],
-        credentials: true
-    }
-));
-app.options('*', cors());
-mongoose.connect("mongodb+srv://joquindo:B7hniC80BhFs04tC@gymbro.z6vfz.mongodb.net/users")
-
-app.get("/", (req,res) => {
+app.get("/", (req, res) => {
     res.json("Hello");
-})
+});
 
-app.post("/login", (req,res) => {
-    const {email,password} = req.body;
-    UserModel.findOne({email: email})
-    .then(user => {
-        if(user){
-            if(user.password === password) {
-                res.json("Success")
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+    UserModel.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                if (user.password === password) {
+                    res.json("Success");
+                } else {
+                    res.status(401).json("The password is incorrect");
+                }
+            } else {
+                res.status(404).json("No record existed");
             }
-            else {
-                res.json("the password is incorrect")
-            }
-        }
-        else {
-            res.json("No record existed")
-        }
-    })
-})
+        })
+        .catch(err => res.status(500).json({ error: err.message }));
+});
 
-app.post('/signup' , (req,res) => {
+app.post('/signup', (req, res) => {
     UserModel.create(req.body)
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-})
+        .then(user => res.status(201).json(user))
+        .catch(err => res.status(400).json({ error: err.message }));
+});
 
-app.listen(3000, () => {
-    console.log('server is running')
-})
+// Listen on the assigned port or default to 3000
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});

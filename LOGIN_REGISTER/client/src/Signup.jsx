@@ -14,7 +14,7 @@ function Signup() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-    axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = false;
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevents default form submission behavior
        

@@ -28,7 +28,14 @@ function Signup() {
             .then(result => {console.log(result)
                 navigate('/login')
             })
-            .catch(err => console.error('AxiosError', err.response?.data || err.message));
+            .catch(err => {
+                console.error('AxiosError:', err.message);
+                if (err.response) {
+                    console.error('Response data:', err.response.data);
+                    console.error('Response status:', err.response.status);
+                    console.error('Response headers:', err.response.headers);
+    }
+});
         }
     };
 

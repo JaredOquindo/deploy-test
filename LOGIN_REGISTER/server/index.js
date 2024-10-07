@@ -16,7 +16,7 @@ app.use(cors({
     // , credentials: true
 }));
 
-mongoose.connect("mongodb+srv://joquindo:B7hniC80BhFs04tC@gymbro.z6vfz.mongodb.net/users", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://joquindo:B7hniC80BhFs04tC@gymbro.z6vfz.mongodb.net/users")
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
